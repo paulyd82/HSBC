@@ -1,5 +1,5 @@
 q ~/HSBC/unitTests/k4unit.q
-
+Assumption is the cloned HSBC repo resides in the home dir
 
 KUltf `:tests.csv
 
