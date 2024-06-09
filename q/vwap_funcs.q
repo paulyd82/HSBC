@@ -65,24 +65,23 @@ calcTWAP:{[fx;s;st;et]
 0N!"Loading CSV file ~/HSBC/data/clientorders.csv";
 clientorders:1_flip `id`version`sym`time`side`limit`start`end!("JISPSFPP";",") 0: hsym `$"~/HSBC/data/clientorders.csv";
 0N!"CSV file successfully loaded. Count ", string count clientorders;
-0N!"Loading CSV file ~/HSBC/data/marketrades.csv";
-martektrades:1_flip `sym`time`price`volume!("SPFJ";",") 0: hsym `$"~/HSBC/data/marketrades.csv";
-0N!"CSV file successfully loaded. Count ", string count martektrades;   
+0N!"Loading CSV file ~/HSBC/data/markettrades.csv";
+markettrades:1_flip `sym`time`price`volume!("SPFJ";",") 0: hsym `$"~/HSBC/data/markettrades.csv";
+0N!"CSV file successfully loaded. Count ", string count markettrades;   
 
 condVWAPFunc:{[cliOrds;mktrades]
-    t:aj[`sym`time;cliOrds;mktrades];
-    t:update condMet:1b from t where ((side=`B) and (limit<=price)) or ((side=`S) and (limit>=price));
-    t:update condVWAP:volume wavg price by sym from t where condMet;
-    select sym,start,end,condVWAP from t
+    t:aj[`sym`time;mktrades;cliOrds];
+    t:update condMet:1b from t where ((side=`B) and (price<=limit)) or ((side=`S) and (price>=limit));
+    0!select condVWAP:volume wavg price by sym,start,end from t where condMet
  };
 
 /
-clientorders and martektrades are pre-loaded tables from csvs
-calcCondVWAP[clientorders;martektrades]
-e.g. calcCondVWAP[clientorders;martektrades]
+clientorders and markettrades are pre-loaded tables from csvs
+calcCondVWAP[clientorders;markettrades]
+e.g. calcCondVWAP[clientorders;markettrades]
 Returns 4 column table of sym,start,end and condVWAP values
 Catches and prints error if encountered
 \
-calcCondVWAP:{[clientorders;martektrades]
-    .[condVWAPFunc;(clientorders;martektrades);{0N!"Failed to execute condVWAPFunc due to ",x}]
+calcCondVWAP:{[clientorders;markettrades]
+    .[condVWAPFunc;(clientorders;markettrades);{0N!"Failed to execute condVWAPFunc due to ",x}]
  };

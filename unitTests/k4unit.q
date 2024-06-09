@@ -3,6 +3,10 @@
 / if your code contains commas enclose the whole code in "quotes"
 / usage: q k4unit.q -p 5001
 / KUT <-> KUnit Tests
+.KU.fx:1_flip `sym`time`price`size!("SPFJ";",") 0: hsym `$"~/HSBC/data/fx_data.csv";
+.KU.clientorders:1_flip `id`version`sym`time`side`limit`start`end!("JISPSFPP";",") 0: hsym `$"~/HSBC/data/clientorders.csv";
+.KU.markettrades:1_flip `sym`time`price`volume!("SPFJ";",") 0: hsym `$"~/HSBC/data/markettrades.csv";
+
 KUT:([]action:`symbol$();ms:`int$();bytes:`long$();lang:`symbol$();code:`symbol$();repeat:`int$();minver:`float$();file:`symbol$();comment:())
 / KUltd `:dirname and/or KUltf `:filename.csv
 / KUrt[] / run tests
