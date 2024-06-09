@@ -1,12 +1,7 @@
 ////////////////////////////
 ///////// Task 1 ///////////
 ////////////////////////////
-/ 
-Example of how to start a q process and load file:
-q ~/HSBC/q/vwap_funcs.q
-Assumption is the cloned HSBC repo resides in the home dir
-\
- 
+
 / 
 load the CSV from location ~/HSBC/data/fx_data.csv
 Columns: sym (symbol), time(temporal), price (float), size (long)
