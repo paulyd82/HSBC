@@ -1,7 +1,7 @@
 # README
 
 ### The Package
-You will likely have executed a `git pull` on this package from https://github.com/paulyd82/HSBC/tree/main. Some assumptions for this project:
+You will likely have executed a `git clone` on this package from https://github.com/paulyd82/HSBC/tree/main. Some assumptions for this project:
 
 - The user is on a Linux server with q installed.
 - The package, once cloned, may be named "HSBC-main". Please rename it to HSBC
