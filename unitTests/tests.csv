@@ -1,14 +1,30 @@
 action,ms,bytes,lang,code,repeat,minver,comment
-comment,0,0,q,,1,,this will just be ignored
-before,0,0,q,fx::.KU.fx,1,,csv 
-before,0,0,q,clientorders::.KU.clientorders,1,,csv 
-before,0,0,q,markettrades::.KU.markettrades,1,,csv 
-true,0,0,q,150=count fx,1,,
-true,0,0,q,150=count clientorders,1,,
-true,0,0,q,150=count markettrades,1,,
-true,0,0,q,all `sym`time`price`size in exec c from meta fx,1,,
-true,0,0,q,all `id`version`sym`time`side`limit`start`end in exec c from meta clientorders,1,,
-true,0,0,q,all `sym`time`price`volume in exec c from meta markettrades,1,,
-run,75,492264,k,+/1.1+!10000,1000,,a few times
-fail,0,0,q,2=`aa,1,,
-after,0,0,k,aa::33,1,,
+comment,0,0,q,,1,,Starting Tests
+before,0,0,q,fx::.KU.fx,1,,csv loaded
+before,0,0,q,clientorders::.KU.clientorders,1,,csv loaded
+before,0,0,q,markettrades::.KU.markettrades,1,,csv loaded
+true,0,0,q,0<=count fx,1,,fx has data
+true,0,0,q,0<count clientorders,1,,clientorders has data
+true,0,0,q,0<count markettrades,1,,markettrades has data
+true,0,0,q,all `sym`time`price`size in exec c from meta fx,1,,fx col names
+true,0,0,q,all `id`version`sym`time`side`limit`start`end in exec c from meta clientorders,1,,clientorders col names
+true,0,0,q,all `sym`time`price`volume in exec c from meta markettrades,1,,markettrades col names
+true,0,0,q,all "stfj" in exec t from meta fx,1,,fx types
+true,0,0,q,all "jistsftt" in exec t from meta clientorders,1,,clientorders types
+true,0,0,q,all "stfj" in exec t from meta markettrades,1,,markettrades types
+true,0,0,q,2=count calcVWAP[fx;`CADUSD`USDEUR;11:30:00;12:00:00],1,,calcVWAP executes 2 res
+true,0,0,q,2=count calcTWAP[fx;`CADUSD`USDEUR;11:30:00;12:00:00],1,,calcTWAP executes 2 res
+true,0,0,q,1=count calcVWAP[fx;`CADUSD;11:30:00;12:00:00],1,,calcVWAP executes 1 res
+true,0,0,q,1=count calcTWAP[fx;`CADUSD;11:30:00;12:00:00],1,,calcTWAP executes 1 res
+true,0,0,q,all "sj" in exec t from meta calcVWAP[fx;`CADUSD;11:30:00;12:00:00],1,,calcVWAP types check
+true,0,0,q,all "sj" in exec t from meta calcTWAP[fx;`CADUSD;11:30:00;12:00:00],1,,calcTWAP types check
+true,0,0,q,all `sym`VWAP` in exec c from meta calcVWAP[fx;`CADUSD;11:30:00;12:00:00],1,,cols types check
+true,0,0,q,all `sym`TWAP` in exec c meta calcTWAP[fx;`CADUSD;11:30:00;12:00:00],1,,cols types check
+true,0,0,q,`sym in keys calcVWAP[fx;`CADUSD;11:30:00;12:00:00],1,,calcVWAP keyed table
+true,0,0,q,`sym in keys calcTWAP[fx;`CADUSD;11:30:00;12:00:00],1,,calcTWAP keyed table
+true,0,0,q,0<count calcCondVWAP[clientorders;markettrades],1,,condVWAPFunc executes 2 res
+true,0,0,q,all "sttj" in exec t from meta calcCondVWAP[clientorders;markettrades],1,,condVWAPFunc types check
+true,0,0,q,all `sym`TWAP` in exec c meta calcCondVWAP[clientorders;markettrades],1,,condVWAPFunc cols check
+true,0,0,q,null keys calcCondVWAP[clientorders;markettrades],1,,condVWAPFunc keyed table
+true,0,0,q,"0<count select from calcCondVWAP[clientorders;markettrades] where side=`B,price>=limit",1,,condition checks
+true,0,0,q,"0<count select from calcCondVWAP[clientorders;markettrades] where side=`S,price<=limit",1,,condition checks

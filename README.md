@@ -1,14 +1,16 @@
 # README
 
 ### The Package
-You will likely have executed a `git clone` on this package from https://github.com/paulyd82/HSBC/tree/main. Some assumptions for this project:
+You will likely have executed a `git clone` on this package from https://github.com/paulyd82/HSBC/tree/main. 
+
+#### Some assumptions for this project:
 
 - The user is on a Linux server with q installed.
-- The package, once cloned, may be named "HSBC-main". Please rename it to HSBC
+- The package, once cloned, *may* be named "HSBC-main". Please rename it to HSBC. If not, please ignore.
 ```bash
 mv HSBC-main HSBC
 ```
-- The repository has been cloned into the home/root directory of your user/appuser. Files are loaded based on this location i.e. sourced from `~/HSBC/..`. If the package does not reside here then please move it to the `~/` directory. 
+- The repository has been cloned into the home/root directory of your user/appuser. If not, feel free to move it to your home dir.
 ```bash
 mv HSBC ~/.
 ```
@@ -16,20 +18,21 @@ mv HSBC ~/.
 ### Start-up
 
 #### Start q process for Tasks 1 and 2
-Once the package is ready in the correct location you can then run the following command to start the q process. On start-up it automatically loads the CSV files and q functions from the package:
+Once the package is ready in the correct location you can then run the following commands to start the q process. On start-up it automatically loads the CSV files and q functions from the package:
 
 ```bash
-q ~/HSBC/q/vwap_funcs.q
+cd ~/HSBC
+./run_q.sh
 ```
 
 Successful start-up should be illustrated with the following example messages logged to your q session (note the counts may differ, but should be > 0):
 
 ```q
-"Loading CSV file ~/HSBC/data/fx_data.csv"
+"Loading CSV file /home/pduffy/HSBC/data/fx_data.csv"
 "CSV file successfully loaded. Count 150"
-"Loading CSV file ~/HSBC/data/clientorders_data.csv"
+"Loading CSV file /home/pduffy/HSBC/data/clientorders_data.csv"
 "CSV file successfully loaded. Count 75"
-"Loading CSV file ~/HSBC/data/markettrades_data.csv"
+"Loading CSV file /home/pduffy/HSBC/data/markettrades_data.csv"
 "CSV file successfully loaded. Count 50"
 ```
 Upon loading, the 3 tables associated with these tasks should subsequently be available for inspection as part of assessment:
@@ -117,22 +120,14 @@ calcCondVWAP[clientorders;markettrades]
 Start up the q process and load in the unit testing script:
 
 ```bash
-q ~/HSBC/unitTests/k4unit.q
+cd ~/HSBC
+./run_tests.sh
 ```
 
-Run the following to load in the tests:
-```q 
-KUltf `$":~/HSBC/unitTests/tests.csv"
-```
 
 Run the following to inspect the tests:
 ```q 
 KUT
-```
-
-To execute the tests, run following:
-```q 
-KUrt[]
 ```
 
 To inspect results: 
