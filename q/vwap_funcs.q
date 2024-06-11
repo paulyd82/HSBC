@@ -6,8 +6,9 @@
 load the CSV from location ~/HSBC/data/fx_data.csv
 Columns: sym (symbol), time(temporal), price (float), size (long)
 \
--1"Loading CSV file ~/HSBC/data/fx_data.csv";
-fx:1_flip `sym`time`price`size!("STFJ";",") 0: hsym `$"~/HSBC/data/fx_data.csv";
+dir:raze system"pwd";
+-1"Loading CSV file ",dir,"/data/fx_data.csv";
+fx:1_flip `sym`time`price`size!("STFJ";",") 0: hsym `$(dir,"/data/fx_data.csv");
 -1"CSV file successfully loaded. Count ", string count fx;
 
 /
@@ -57,11 +58,11 @@ calcTWAP:{[fx;s;st;et]
 ///////// Task 2 ///////////
 ////////////////////////////
 
--1"Loading CSV file ~/HSBC/data/clientorders.csv";
-clientorders:1_flip `id`version`sym`time`side`limit`start`end!("JISTSFTT";",") 0: hsym `$"~/HSBC/data/clientorders.csv";
+-1"Loading CSV file ",dir,"/data/clientorders.csv";
+clientorders:1_flip `id`version`sym`time`side`limit`start`end!("JISTSFTT";",") 0: hsym `$(dir,"/data/clientorders.csv");
 -1"CSV file successfully loaded. Count ", string count clientorders;
--1"Loading CSV file ~/HSBC/data/markettrades.csv";
-markettrades:1_flip `sym`time`price`volume!("STFJ";",") 0: hsym `$"~/HSBC/data/markettrades.csv";
+-1"Loading CSV file ",dir,"/data/markettrades.csv";
+markettrades:1_flip `sym`time`price`volume!("STFJ";",") 0: hsym `$(dir,"/data/markettrades.csv");
 -1"CSV file successfully loaded. Count ", string count markettrades;   
 
 condVWAPFunc:{[cliOrds;mktrades]

@@ -3,9 +3,11 @@
 / if your code contains commas enclose the whole code in "quotes"
 / usage: q k4unit.q -p 5001
 / KUT <-> KUnit Tests
-.KU.fx:1_flip `sym`time`price`size!("SPFJ";",") 0: hsym `$"~/HSBC/data/fx_data.csv";
-.KU.clientorders:1_flip `id`version`sym`time`side`limit`start`end!("JISPSFPP";",") 0: hsym `$"~/HSBC/data/clientorders.csv";
-.KU.markettrades:1_flip `sym`time`price`volume!("SPFJ";",") 0: hsym `$"~/HSBC/data/markettrades.csv";
+dir:raze system "pwd";
+/base_dir:raze system "pwd";
+.KU.fx:1_flip `sym`time`price`size!("STFJ";",") 0: hsym `$(dir,"/data/fx_data.csv");
+.KU.clientorders:1_flip `id`version`sym`time`side`limit`start`end!("JISTSFTT";",") 0: hsym `$(dir,"/data/clientorders.csv");
+.KU.markettrades:1_flip `sym`time`price`volume!("STFJ";",") 0: hsym `$(dir,"/data/markettrades.csv");
 
 KUT:([]action:`symbol$();ms:`int$();bytes:`long$();lang:`symbol$();code:`symbol$();repeat:`int$();minver:`float$();file:`symbol$();comment:())
 / KUltd `:dirname and/or KUltf `:filename.csv
@@ -141,3 +143,6 @@ SAVEFILE:`:KUTR.csv
 
 \d .
 @[value;"\\l k4unit.custom.q";::];      
+
+KUltf `$(dir,"/unitTests/tests.csv");
+KUrt[];
