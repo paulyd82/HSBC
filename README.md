@@ -1,7 +1,7 @@
 # README
 
 ### The Package
-You will likely have executed a `git clone` on this package from https://github.com/paulyd82/HSBC/tree/main. 
+You will likely have executed a `git clone` on this repo from my [github](https://github.com/paulyd82/HSBC/tree/main). 
 
 #### Some assumptions for this project:
 
@@ -14,6 +14,7 @@ mv HSBC-main HSBC
 ```bash
 mv HSBC ~/.
 ```
+<br>
 
 ### Start-up
 
