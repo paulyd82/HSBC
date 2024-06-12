@@ -116,6 +116,12 @@ calcCondVWAP[clientorders;markettrades]
 
 ### Unit Tests
 
+#### Background
+
+For the purposes of this task I have implemebted the k4unit testing framework from KX. Further information on it can be found [here](https://code.kx.com/q/kb/unit-tests/). Tests are not exhaustive but should cover most of the basic checks that would be needed. Unfortunately, I was unable to successfully load in the vwap functions as part of the tests, and I did not get enough time to resolve. I did however created the tests themselves, albeit they are failing, to illustrate some level of testing coverage required for this exercise. 
+
+For simplicity I have created a run script that automates most of the loading functions required to execute the tests, with just a few steps needed for the user, as outlined below.
+
 #### Starting The q Process
 Start up the q process and load in the unit testing script:
 
@@ -123,7 +129,6 @@ Start up the q process and load in the unit testing script:
 cd ~/HSBC
 ./run_tests.sh
 ```
-
 
 Run the following to inspect the tests:
 ```q 
